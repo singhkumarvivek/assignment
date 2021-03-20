@@ -1,0 +1,19 @@
+{% load thumbnail %}
+
+<h1>Image Library</h1>
+
+<form method="get">
+  {% csrf_token %}
+  {{ filter_form }}
+  <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+<a href="{{ base_url }}">Clear all filter</a>
+<ul>
+  {% for post in object_list %}
+    <h2>{{ post.title }}</h2>
+    {% thumbnail  post.image "100x100" crop="center" as image %}
+        <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}">
+    {% endthumbnail %}
+  {% endfor %}
+</ul>
+<a href="upload/">Upload</a>
